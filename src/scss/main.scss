@@ -1,0 +1,9 @@
+@import "settings/variables";
+
+.example-class {
+  color: $color-red-default;
+
+  .child-class {
+    color: $color-blue-default;
+  }
+}
