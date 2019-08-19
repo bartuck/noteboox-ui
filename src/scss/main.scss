@@ -1,4 +1,8 @@
+// SETTINGS
 @import "settings/variables";
+
+// TEMPLATES
+@import "templates/banner";
 
 .example-class {
   color: $color-red-default;

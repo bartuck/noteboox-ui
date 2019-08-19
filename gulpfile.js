@@ -41,7 +41,9 @@ function reload(next) {
 
 function copy() {
   return gulp.src([
-    SRC_DIR + '/**/*.jpg'
+    SRC_DIR + '/**/*.{jpg,gif,png}',
+    SRC_DIR + '/sw.js',
+    SRC_DIR + '/manifest.json'
   ]).pipe(gulp.dest(OUT_DIR));
 }
 
@@ -77,6 +79,7 @@ function watch() {
   gulp.watch(SRC_DIR + '/translations/*.json', gulp.series(translate, reload));
   gulp.watch(SRC_DIR + '/scss/**/*.scss', gulp.series(processCss, reload));
   gulp.watch(SRC_DIR + '/js/*.js', gulp.series(processJs, reload));
+  gulp.watch(SRC_DIR + '/sw.js', gulp.series(processJs, reload));
 }
 
 /**
