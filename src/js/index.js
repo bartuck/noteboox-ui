@@ -1,40 +1,24 @@
-console.log('Dist built!');
+// CORE
+import { AppInstallPrompt } from './core/app-install-prompt.core';
+import { AppRouter } from './core/app-router.core';
+import { AppEventManager } from './core/app-event-manager.core';
 
-import { Parrot } from './parrot';
+class AppCore {
+  constructor() {
+    this.installPrompt = new AppInstallPrompt();
+    this.eventManager = new AppEventManager();
+    this.router = new AppRouter().router;
+    this.testRouter();
+  }
 
-const papug = new Parrot();
+  testRouter() {
+    console.log('#testRouter');
+    this.router
+      .on('products/list', function () {
+        console.log('http://localhost:3000/#products/list');
+      })
+      .resolve();
+  }
+}
 
-papug.fly();
-
-// ---------------
-
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', event => {
-
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
-  event.preventDefault();
-
-  // Stash the event so it can be triggered later.
-  deferredPrompt = event;
-
-  // Attach the install prompt to a user gesture
-  document.querySelector('#installBtn').addEventListener('click', event => {
-
-    // Show the prompt
-    deferredPrompt.prompt();
-
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice
-      .then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
-        } else {
-          console.log('User dismissed the A2HS prompt');
-        }
-        deferredPrompt = null;
-      });
-  });
-
-  // Update UI notify the user they can add to home screen
-  document.querySelector('#installBanner').style.display = 'flex';
-});
+new AppCore();

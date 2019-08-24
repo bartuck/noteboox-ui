@@ -78,7 +78,7 @@ function watch() {
   gulp.watch(SRC_DIR + '/*.html', gulp.series(translate, reload));
   gulp.watch(SRC_DIR + '/translations/*.json', gulp.series(translate, reload));
   gulp.watch(SRC_DIR + '/scss/**/*.scss', gulp.series(processCss, reload));
-  gulp.watch(SRC_DIR + '/js/*.js', gulp.series(processJs, reload));
+  gulp.watch(SRC_DIR + '/js/**/*.js', gulp.series(processJs, reload));
   gulp.watch(SRC_DIR + '/sw.js', gulp.series(processJs, reload));
 }
 

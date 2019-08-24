@@ -6,6 +6,8 @@ const precacheResources = [
   'js/bundle.min.js',
 ];
 
+console.log('self', self);
+
 // Install
 self.addEventListener('install', event => {
   console.log('Service worker install event!');
