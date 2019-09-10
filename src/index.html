@@ -2,7 +2,7 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8">
-    <title>Title of the document</title>
+    <title>Noteboox</title>
     <link rel="stylesheet" type="text/css" href="css/styles.min.css">
     <link rel="manifest" href="manifest.json">
 
@@ -28,12 +28,19 @@
     <link rel="apple-touch-icon" sizes="512x512" href="assets/images/icons/icon-512x512.png">
   </head>
   <body>
-    <h1>{{hello_world}}</h1>
-    <p>{{hello_content}}</p>
-    <img src="assets/images/example-img.jpg" title="Example Image">
+    <h1>NOTEBOOX</h1>
     <main>
-      <section id="installBanner" class="banner">
+      <div id="installBanner" class="banner">
         <button id="installBtn">Install app</button>
+      </div>
+      <section>
+        <h2>{{notebooks}}</h2>
+        <ul id="notebooks-list"></ul>
+        <section>
+          <h2>{{notes}}</h2>
+          <ul id="notes-list"></ul>
+          <article id="note-details"></article>
+        </section>
       </section>
     </main>
     <script src="js/bundle.min.js"></script>

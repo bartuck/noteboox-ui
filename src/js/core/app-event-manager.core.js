@@ -4,7 +4,7 @@ export class AppEventManager {
   }
 
   addEvent(id, callback) {
-    if (callback !== 'function') {
+    if (typeof callback !== 'function') {
       throw new Error('[AppEventManager] addEvent: event callback has to be a function');
     }
 
@@ -17,13 +17,26 @@ export class AppEventManager {
 
   dispatchEvent(id, ...args) {
     if (!this.eventsStorage.hasOwnProperty(id)) {
-      throw new Error('[AppEventManager] dispatchEvent: the requested event does not exist in the event storage')
+      return console.warn('[AppEventManager] dispatchEvent: the requested event does not exist in the event storage', id);
     }
 
     const callbacks = this.eventsStorage[id];
 
+    if (!this.isIterable(callbacks)) {
+      return console.warn('[AppEventManager] dispatchEvent: no iterable callbacks', id);
+    }
+
     for (const fn of callbacks) {
       fn(args);
     }
+  }
+
+  isIterable(obj) {
+    // checks for null and undefined
+    if (obj == null) {
+      return false;
+    }
+
+    return typeof obj[Symbol.iterator] === 'function';
   }
 }
