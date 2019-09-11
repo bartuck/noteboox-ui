@@ -39,7 +39,7 @@ export class NotebooksComponent {
     return notebooks;
   }
 
-  createNotebook(notebook) {
-    return new NotebookComponent(this.eventManager, notebook).render();
+  createNotebook(notebookData) {
+    return new NotebookComponent(this.eventManager, notebookData).render();
   }
 }

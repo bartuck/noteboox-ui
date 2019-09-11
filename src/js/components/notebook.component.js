@@ -1,14 +1,15 @@
 import { APP_ROUTER } from "../core/const/app-router.const";
+import { AppRouter } from "../core/app-router.core";
 
 export class NotebookComponent {
-  constructor(eventManager, notebook) {
+  constructor(eventManager, notebookData) {
     this.eventManager = eventManager;
-    this.title = notebook.title;
-    this.id = notebook.id;
+    this.title = notebookData.title;
+    this.id = notebookData.id;
   }
 
   get pathToNotebook() {
-    return '#' + APP_ROUTER.NOTEBOOKS.PATH + '/' + this.id;
+    return AppRouter.getPathToNotebook(this.id);
   }
 
   get linkHTML() {

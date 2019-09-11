@@ -1,4 +1,6 @@
 {
+  "install_app_btn": "Add to my home screen / desktop",
   "notebooks": "Notesy",
-  "notes": "Notatki"
+  "notes": "Notatki",
+  "note": "Notatka"
 }

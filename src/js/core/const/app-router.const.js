@@ -1,8 +1,14 @@
 export const APP_ROUTER = {
-  NOTEBOOKS: {
-    PATH: 'notebooks',
+  NOTEBOOK: {
+    PATH: 'notebook',
     PARAMS: {
-      ID: ':notebookId'
+      ID: 'notebookId'
+    }
+  },
+  NOTE: {
+    PATH: 'note',
+    PARAMS: {
+      ID: 'noteId'
     }
   }
 };

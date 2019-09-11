@@ -2,19 +2,22 @@
 import { AppInstallPrompt } from './core/app-install-prompt.core';
 import { AppRouter } from './core/app-router.core';
 import { AppEventManager } from './core/app-event-manager.core';
-import { NotebooksComponent } from "./components/notebooks.component";
 import { APP_EVENTS } from "./core/const/app-events.const";
-import { APP_ROUTER } from "./core/const/app-router.const";
-import { NotesComponent } from "./components/notes.component";
+
+// COMPONENTS
+import { NotebooksComponent } from "./components/notebooks.component";
+import { NotesComponent } from './components/notes.component';
+import { NoteContentComponent } from './components/note-content/note-content.component';
 
 class AppCore {
   constructor() {
-    this.installPrompt = new AppInstallPrompt();
     this.eventManager = new AppEventManager();
-    this.notebooksComponent = new NotebooksComponent(this.eventManager);
     this.router = new AppRouter().router;
 
-    this.dispachInitialEvents();
+    new AppInstallPrompt();
+    new NotebooksComponent(this.eventManager);
+
+    this.dispatchInitialEvents();
     this.initRouters();
   }
 
@@ -22,22 +25,48 @@ class AppCore {
    * Remember to add a hash in http:// to the paths
    */
   initRouters() {
+    console.log(AppRouter.getPathToNotebooks());
+
     this.router
-      // notebooks
-      .on(APP_ROUTER.NOTEBOOKS.PATH, () => {
+      .on(AppRouter.getPathToNotebooks(), () => {
+        console.log('#1');
         this.eventManager.dispatchEvent(APP_EVENTS.SHOW_NOTEBOOKS);
       })
-      // notebooks/123
-      .on(`${APP_ROUTER.NOTEBOOKS.PATH}/${APP_ROUTER.NOTEBOOKS.PARAMS.ID}`, (params, query) => {
-        this.notesComponent = new NotesComponent(this.eventManager, params, query);
+      .on(AppRouter.getPathToNotebook(), (params, query) => {
+        console.log('#2');
+        new NotesComponent(this.eventManager, params, query);
 
         this.eventManager.dispatchEvent(APP_EVENTS.SHOW_NOTES);
+      })
+      .on(AppRouter.getPathToNote(), (params, query) => {
+        console.log('#3');
+        new NoteContentComponent(this.eventManager, params, query);
+
+        this.eventManager.dispatchEvent(APP_EVENTS.SHOW_NOTE);
       })
       .resolve();
   }
 
-  dispachInitialEvents() {
-    this.eventManager.dispatchEvent(APP_EVENTS.SHOW_NOTEBOOKS);
+  dispatchInitialEvents() {
+    this.dispatchNotebooksListEvents();
+    this.dispatchNotesListEvents();
+  }
+
+  dispatchNotebooksListEvents() {
+    if (AppRouter.isNotebooksList) {
+      console.log('isNotebooksList');
+      this.eventManager.dispatchEvent(APP_EVENTS.SHOW_NOTEBOOKS);
+    }
+  }
+
+  dispatchNotesListEvents() {
+    if (!AppRouter.isNotesList) {
+      return null;
+    }
+
+    console.log('isNoteContent');
+    new NoteContentComponent(this.eventManager);
+    this.eventManager.dispatchEvent(APP_EVENTS.SHOW_NOTE);
   }
 }
 

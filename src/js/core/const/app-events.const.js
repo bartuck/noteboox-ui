@@ -6,5 +6,6 @@ export const APP_EVENTS = Object.freeze({
   UPDATE_NOTE:      Symbol(),
   DELETE_NOTE:      Symbol(),
   SHOW_NOTEBOOKS:   Symbol('SHOW_NOTEBOOKS'),
-  SHOW_NOTES:       Symbol('SHOW_NOTES')
+  SHOW_NOTES:       Symbol('SHOW_NOTES'),
+  SHOW_NOTE:       Symbol('SHOW_NOTE')
 });
